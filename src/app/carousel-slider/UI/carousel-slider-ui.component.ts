@@ -18,6 +18,7 @@ export class CarouselSliderUiComponent implements OnInit, OnDestroy{
   @Input() containerWidth: string = '400px';
   @Input() slideIntervalTime: number = 3000;
   @Input() isInterval: boolean = true;
+  @Input() stopOnHover: boolean = true; // Functionality Not Added Yet
 
   currentIndex: number = 0
   autoPlayTimer$!: Observable<number>

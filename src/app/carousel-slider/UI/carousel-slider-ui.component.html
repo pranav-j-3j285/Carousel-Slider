@@ -13,6 +13,8 @@
                 [ngClass]="{'active': $index === currentIndex }"
                 [style]="'--index:' + currentIndex"
                 >
+                <!-- (mouseover)="(stopOnHover && ($index === currentIndex)) ? autoPlayTimerSubs.unsubscribe() : ''"
+                (mouseout)="(stopOnHover && ($index === currentIndex)) ? startAutoPlayTimerFn() : ''" -->
                 <img [src]="url">
             </div>
         }

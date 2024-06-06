@@ -72,7 +72,7 @@ img {
     height: 10px;
     border-radius: 50%;
     cursor: pointer;
-    transition: all 0.6 ease;
+    transition: all 600ms ease;
 }
 
 .bottom-item.active {
@@ -89,4 +89,5 @@ img {
   height: 6px;
   background-color: black;
   border-radius: 50%;
+  transition: all 600ms ease;
 }
