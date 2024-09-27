@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Observable, Subscription, interval, share } from 'rxjs';
 
 @Component({
@@ -57,9 +57,9 @@ export class CarouselSliderUiComponent implements OnInit, OnDestroy{
   nextSlideFn(): void {
     this.currentIndex = (this.currentIndex + 1) % this.slides.length; 
     this.restartAutoPlayTimerFn();
-    // if(this.currentIndex === this.data.length - 1) {
+    // if(this.currentIndex === this.slides.length - 1) {      
     //   this.currentIndex = 0;
-    //   return
+    //    return
     // }
     // this.currentIndex++;
   }
@@ -71,5 +71,52 @@ export class CarouselSliderUiComponent implements OnInit, OnDestroy{
 
   ngOnDestroy(): void {
       this.autoPlayTimerSubs.unsubscribe();
+  }
+
+  //change by ronak
+  private startX: number = 0;
+  private endX: number = 0;
+
+  // Touch events
+  @HostListener('touchstart', ['$event'])
+  onTouchStart(event: TouchEvent) {
+    this.startX = event.touches[0].clientX;
+  }
+
+  @HostListener('touchend', ['$event'])
+  onTouchEnd(event: TouchEvent) {
+    this.endX = event.changedTouches[0].clientX;
+    this.handleSwipe();
+  }
+
+  // Mouse events
+  @HostListener('mousedown', ['$event'])
+  onMouseDown(event: MouseEvent) {
+    this.startX = event.clientX;
+  }
+
+  @HostListener('mouseup', ['$event'])
+  onMouseUp(event: MouseEvent) {
+    this.endX = event.clientX;
+    this.handleSwipe();
+  }
+
+  private handleSwipe() {
+    const threshold = 50; // Minimum distance to consider a swipe
+    const swipeDistance = this.endX - this.startX;
+
+    if (swipeDistance > threshold) {
+      this.onSwipeRight();
+    } else if (swipeDistance < -threshold) {
+      this.onSwipeLeft();
+    }
+  }
+
+  private onSwipeLeft() {
+    this.nextSlideFn()
+  }
+
+  private onSwipeRight() {
+    this.previousSlideFn()
   }
 }

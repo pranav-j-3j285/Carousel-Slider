@@ -9,14 +9,14 @@
         >
         @for (url of slides; track $index) {
             <div 
-                class="image-item"
-                [ngClass]="{'active': $index === currentIndex }"
-                [style]="'--index:' + currentIndex"
-                >
-                <!-- (mouseover)="(stopOnHover && ($index === currentIndex)) ? autoPlayTimerSubs.unsubscribe() : ''"
-                (mouseout)="(stopOnHover && ($index === currentIndex)) ? startAutoPlayTimerFn() : ''" -->
-                <img [src]="url">
-            </div>
+            class="image-item"
+            [ngClass]="{'active': $index === currentIndex, 'transit-img' : currentIndex != 0}"
+            [style]="'--index:' + currentIndex"
+            >
+            <!-- (mouseover)="(stopOnHover && ($index === currentIndex)) ? autoPlayTimerSubs.unsubscribe() : ''"
+            (mouseout)="(stopOnHover && ($index === currentIndex)) ? startAutoPlayTimerFn() : ''" -->
+            <img [src]="url" [ngClass]="{'img-view' : currentIndex != 0}">
+        </div>
         }
     </div>
 
